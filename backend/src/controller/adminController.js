@@ -67,9 +67,29 @@ const deleteAdmin = async (req, res) => {
   }
 };
 
+const adminLogin = async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    const existingAdmin = await Admin.findOne({ username: req.body.username });
+    if (!existingAdmin) {
+      throw new ConflictError("Admin Not exists in the database");
+    } else {
+      if (password === existingAdmin.password) {
+        res.status(StatusCodes.OK).json(existingAdmin);
+      } else {
+        res.status(StatusCodes.BAD_REQUEST).json("Password Not Matched");
+      }
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(error.statusCode || 500).json({ message: error.message });
+  }
+};
+
 module.exports = {
   createNewAdmin,
   getAdminDetails,
   updateAdmin,
   deleteAdmin,
+  adminLogin
 };

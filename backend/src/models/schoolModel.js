@@ -15,7 +15,6 @@ const schoolSchema = new Schema({
   schoolPlace: {
     type: String,
     required: true,
-    unique: true,
     trim: true,
   },
   schoolEmail: {

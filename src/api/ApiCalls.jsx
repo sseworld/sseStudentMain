@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const url = "http://localhost:8080/app/api/students";
+const admin = "http://localhost:8080/app/api/admin";
 
 export function PostCall(output) {
   return axios.post(url, output);
@@ -16,4 +17,8 @@ export function DeleteCall(nic) {
 
 export function PatchCall(nic, output) {
   return axios.patch(`${url}/${nic}`, output);
+}
+
+export function LoginCall(output) {
+  return axios.patch(`${admin}/login`, output);
 }

@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Img from "../assets/react.svg";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../api/authContext";
 
 function Login() {
+  const { login } = useContext(AuthContext);
   const [admin, setAdmin] = useState({ username: "", password: "" });
   const [errMessage, setErrMessage] = useState("");
   const navigate = useNavigate();
@@ -17,18 +19,28 @@ function Login() {
     });
   }
 
+  // function handleLogin(event) {
+  //   event.preventDefault();
+  //   if (admin.username !== "admin") {
+  //     setErrMessage("Username is not correct");
+  //     document.getElementById("username").focus();
+  //     return;
+  //   } else if (admin.password !== "admin123") {
+  //     setErrMessage("Password is not correct");
+  //     document.getElementById("password").focus();
+  //     return;
+  //   }
+  //   navigate("/dashboard");
+  // }
+
   function handleLogin(event) {
     event.preventDefault();
-    if (admin.username !== "admin") {
-      setErrMessage("Username is not correct");
-      document.getElementById("username").focus();
-      return;
-    } else if (admin.password !== "admin123") {
-      setErrMessage("Password is not correct");
-      document.getElementById("password").focus();
-      return;
+    try {
+      login(admin);
+      navigate("/dashboard");
+    } catch (err) {
+      setErr(err.response.data);
     }
-    navigate("/dashboard");
   }
 
   return (

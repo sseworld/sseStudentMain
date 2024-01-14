@@ -5,6 +5,7 @@ const {
   getAdminDetails,
   updateAdmin,
   deleteAdmin,
+  adminLogin,
 } = require("../controller/adminController");
 
 router.route("/").post(createNewAdmin);
@@ -13,5 +14,7 @@ router
   .get(getAdminDetails)
   .patch(updateAdmin)
   .delete(deleteAdmin);
+
+router.route("/login").post(adminLogin);
 
 module.exports = router;
