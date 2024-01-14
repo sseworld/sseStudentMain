@@ -3,10 +3,15 @@ const cors = require("cors");
 require("dotenv").config();
 require("express-async-errors");
 const db = require("./config/mongoConfig");
-const students = require("./routes/studentRouter");
 const notFoundMiddleWare = require("./middlewares/notFound");
 const errorHandlerMiddleWare = require("./middlewares/globalErrorHandler");
 const mongoose = require("mongoose");
+
+// Routers
+const students = require("./routes/studentRouter");
+const school = require("./routes/schoolRouter");
+const admin = require("./routes/adminRouter");
+
 
 const app = express();
 
@@ -16,6 +21,8 @@ app.use(express.json());
 
 // Routes
 app.use("/app/api/students", students);
+app.use("/app/api/schools", school);
+app.use("/app/api/admin", admin);
 
 app.use(notFoundMiddleWare);
 app.use(errorHandlerMiddleWare);
